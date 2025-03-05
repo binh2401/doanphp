@@ -1,0 +1,48 @@
+<?php
+require_once "../models/Product.php";
+session_start();
+
+if (!isset($_SESSION["user"])) {
+    header("Location: login.php");
+    exit();
+}
+
+$productModel = new Product($conn);
+$products = $productModel->getProducts();
+?>
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sản phẩm</title>
+</head>
+
+<body>
+    <h2>Danh sách sản phẩm</h2>
+    <a href="add_product.php">Thêm sản phẩm</a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>Hình ảnh</th>
+            <th>Hành động</th>
+        </tr>
+        <?php foreach ($products as $product): ?>
+            <tr>
+                <td><?= $product["id"] ?></td>
+                <td><?= $product["name"] ?></td>
+                <td><?= $product["price"] ?></td>
+                <td><img src="/uploads/<?= $product["image"] ?>" width="50"></td>
+                <td>
+                    <a href="edit_product.php?id=<?= $product["id"] ?>">Sửa</a> |
+                    <a href="delete_product.php?id=<?= $product["id"] ?>" onclick="return confirm('Xóa sản phẩm này?')">Xóa</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+</body>
+
+</html>
