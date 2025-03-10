@@ -21,12 +21,17 @@ class User
     // Hàm đăng nhập
     public function login($username, $password)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->execute([$username]);
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = :username");
+        $stmt->bindParam(":username", $username);
+        $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user && password_verify($password, $user['password'])) {
-            return $user;
+        if ($user && password_verify($password, $user["password"])) {
+            return [
+                "id" => $user["id"],
+                "username" => $user["username"],
+                "role" => $user["role"]
+            ];
         }
         return false;
     }

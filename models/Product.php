@@ -11,11 +11,12 @@ class Product
     }
 
     // Thêm sản phẩm
-    public function addProduct($name, $price, $description, $image)
+    public function addProduct($name, $price, $description, $image, $category_id)
     {
-        $stmt = $this->conn->prepare("INSERT INTO products (name, price, description, image) VALUES (?, ?, ?, ?)");
-        return $stmt->execute([$name, $price, $description, $image]);
+        $stmt = $this->conn->prepare("INSERT INTO products (name, price, description, image, category_id) VALUES (?, ?, ?, ?, ?)");
+        return $stmt->execute([$name, $price, $description, $image, $category_id]);
     }
+
 
     // Lấy danh sách sản phẩm
     public function getProducts()

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "models/Product.php";
-require_once "config/database.php";
+require_once "../models/Product.php";
+require_once "../config/database.php";
 
 $productModel = new Product($conn);
 
@@ -12,6 +12,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "add" && isset($_GET["id"])) {
         $cartItem = [
             "id" => $product["id"],
             "name" => $product["name"],
+            "image" => $product["image"],
             "price" => $product["price"],
             "quantity" => 1
         ];
@@ -72,6 +73,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "clear") {
         <table border="1">
             <tr>
                 <th>Tên sản phẩm</th>
+                <th>Ảnh</th>
                 <th>Giá</th>
                 <th>Số lượng</th>
                 <th>Thành tiền</th>
@@ -85,6 +87,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "clear") {
             ?>
                 <tr>
                     <td><?= $item["name"] ?></td>
+                    <td><img src="../uploads/<?= $item["image"] ?>" width="100"></td>
                     <td><?= number_format($item["price"]) ?> VNĐ</td>
                     <td><?= $item["quantity"] ?></td>
                     <td><?= number_format($subtotal) ?> VNĐ</td>

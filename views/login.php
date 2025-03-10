@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $userModel->login($username, $password);
     if ($user) {
         $_SESSION["user"] = $user;
-        header("Location: dashboard.php");
+        header("Location: ../index.php");
     } else {
         echo "Sai tài khoản hoặc mật khẩu!";
     }

@@ -26,11 +26,11 @@ if (!$product) {
 
 <body>
     <h2><?= $product["name"] ?></h2>
-    <img src="<?= $product["image"] ?>" width="300">
+    <img src="../uploads/<?= $product["image"] ?>" width="300">
     <p>Giá: <?= number_format($product["price"]) ?> VNĐ</p>
     <p><?= $product["description"] ?></p>
     <a href="../index.php">Quay lại trang chủ</a>
-    <a href="../cart.php?action=add&id=<?= $product["id"] ?>">Thêm vào giỏ hàng</a>
+    <a href="../views/cart.php?action=add&id=<?= $product["id"] ?>">Thêm vào giỏ hàng</a>
 </body>
 
 </html>

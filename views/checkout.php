@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "config/database.php";
+require_once "../config/database.php";
 
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
@@ -34,4 +34,4 @@ foreach ($_SESSION["cart"] as $item) {
 unset($_SESSION["cart"]);
 
 echo "Đặt hàng thành công!";
-echo '<a href="index.php">Quay lại trang chủ</a>';
+echo '<a href="../index.php">Quay lại trang chủ</a>';
