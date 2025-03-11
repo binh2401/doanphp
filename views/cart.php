@@ -1,5 +1,7 @@
 <?php
-session_start();
+require_once "../public/session.php"; // Quản lý phiên
+checkLogin(); // Kiểm tra xem người dùng đã đăng nhập hay chưa
+
 require_once "../models/Product.php";
 require_once "../config/database.php";
 

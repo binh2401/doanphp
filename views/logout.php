@@ -1,5 +1,3 @@
 <?php
-session_start();
-session_destroy();
-header("Location: login.php");
-exit();
+require_once "../public/session.php";
+logout(); // Hủy phiên và đăng xuất

@@ -1,5 +1,7 @@
 <?php
 require_once "../config/database.php";
+require_once "..public/session.php"; // Quản lý phiên
+checkAdmin(); // Kiểm tra xem user có phải admin không
 session_start();
 
 // Kiểm tra xem user có phải admin không

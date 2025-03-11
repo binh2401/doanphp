@@ -1,16 +1,11 @@
 <?php
 require_once "models/Product.php";
 require_once "config/database.php"; // Kết nối CSDL
+require_once "public/session.php"; // Quản lý phiên
 
+checkLogin(); // Kiểm tra xem người dùng đã đăng nhập hay chưa
 
-session_start();
-if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit();
-}
-
-echo "Xin chào, " . $_SESSION["user"]["username"] . "! <a href='views/logout.php'>Đăng xuất</a>";
-
+echo "Xin chào, " . $_SESSION["username"] . "! <a href='views/logout.php'>Đăng xuất</a>";
 
 $productModel = new Product($conn);
 $products = $productModel->getProducts();

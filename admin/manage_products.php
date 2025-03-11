@@ -1,6 +1,8 @@
 <?php
 require_once "../models/Product.php";
-session_start();
+require_once "../public/session.php"; // Quản lý phiên
+checkAdmin();
+
 
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
@@ -35,7 +37,7 @@ $products = $productModel->getProducts();
                 <td><?= $product["id"] ?></td>
                 <td><?= $product["name"] ?></td>
                 <td><?= $product["price"] ?></td>
-                <td><img src="/uploads/<?= $product["image"] ?>" width="50"></td>
+                <td><img src="../uploads/<?= $product["image"] ?>" width="50"></td>
                 <td>
                     <a href="edit_product.php?id=<?= $product["id"] ?>">Sửa</a> |
                     <a href="delete_product.php?id=<?= $product["id"] ?>" onclick="return confirm('Xóa sản phẩm này?')">Xóa</a>
