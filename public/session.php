@@ -5,7 +5,7 @@ session_start();
 function checkLogin()
 {
     if (!isset($_SESSION["user_id"])) {
-        header("Location: ../views/login.php");
+        header("Location: /doanphp/views/login.php");
         exit();
     }
 }
@@ -15,7 +15,7 @@ function checkAdmin()
 {
     checkLogin(); // Kiểm tra đăng nhập trước
     if ($_SESSION["role"] !== "admin") {
-        header("Location: ../views/unauthorized.php");
+        header("Location: /doanphp/views/unauthorized.php");
         exit();
     }
 }
@@ -33,6 +33,6 @@ function logout()
 {
     $_SESSION = array();
     session_destroy();
-    header("Location: ../views/login.php");
+    header("Location: /doanphp/views/login.php");
     exit();
 }

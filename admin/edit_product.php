@@ -1,6 +1,6 @@
 <?php
 require_once "../models/Product.php";
-require_once "..public/session.php"; // Quản lý phiên
+require_once "../public/session.php"; // Quản lý phiên
 checkAdmin();
 session_start();
 

@@ -1,18 +1,21 @@
 <?php
+require_once "../config/database.php";
+require_once "../public/session.php";
 require_once "../models/User.php";
-session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $userModel = new User($conn);
     $username = $_POST["username"];
     $password = $_POST["password"];
 
+    $userModel = new User($conn);
     $user = $userModel->login($username, $password);
+
     if ($user) {
-        $_SESSION["user"] = $user;
+        setSession($user); // Thiết lập các biến phiên
         header("Location: ../index.php");
+        exit();
     } else {
-        echo "Sai tài khoản hoặc mật khẩu!";
+        echo "Tên đăng nhập hoặc mật khẩu không đúng!";
     }
 }
 ?>
