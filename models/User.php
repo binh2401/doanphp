@@ -1,5 +1,5 @@
 <?php
-require_once "../config/database.php";
+require_once __DIR__ . "/../config/database.php";
 
 class User
 {
@@ -11,11 +11,11 @@ class User
     }
 
     // Hàm đăng ký
-    public function register($username, $email, $password)
+    public function register($username, $email, $password, $image)
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        return $stmt->execute([$username, $email, $hashedPassword]);
+        $stmt = $this->conn->prepare("INSERT INTO users (username, email, password, image) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$username, $email, $hashedPassword, $image]);
     }
 
     // Hàm đăng nhập
@@ -30,6 +30,7 @@ class User
             return [
                 "id" => $user["id"],
                 "username" => $user["username"],
+                "image" => $user["image"],
                 "role" => $user["role"]
             ];
         }

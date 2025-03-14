@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $category_id = $_POST["category_id"];
 
     if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-        $targetDir = "../uploads/product"; // Thư mục lưu ảnh
+        $targetDir = "../uploads/product/"; // Thư mục lưu ảnh
         $fileName = time() . "_" . basename($_FILES["image"]["name"]);
         $targetFilePath = $targetDir . $fileName;
 

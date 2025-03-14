@@ -1,7 +1,7 @@
 <?php
-require_once "../config/database.php";
-require_once "../public/session.php";
-require_once "../models/User.php";
+require_once "config/database.php";
+require_once "public/session.php";
+require_once "models/User.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
@@ -11,14 +11,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $userModel->login($username, $password);
 
     if ($user) {
-        setSession($user); // Thiết lập các biến phiên
-        header("Location: ../index.php");
+        setSession($user); // Sử dụng hàm setSession để lưu thông tin người dùng vào phiên
+        header("Location: index.php");
         exit();
     } else {
         echo "Tên đăng nhập hoặc mật khẩu không đúng!";
     }
 }
 ?>
+?>
+
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -35,6 +37,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="password" name="password" placeholder="Mật khẩu" required><br>
         <button type="submit">Đăng nhập</button>
     </form>
+    <?php
+    // Gỡ lỗi: Hiển thị thông tin phiên
+    if (isset($_SESSION['user'])) {
+        echo "<pre>";
+        print_r($_SESSION['user']);
+        echo "</pre>";
+    }
+    ?>
 </body>
 
 </html>
