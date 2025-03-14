@@ -3,12 +3,6 @@ require_once "../models/Product.php";
 require_once "../public/session.php"; // Quản lý phiên
 checkAdmin();
 
-
-if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit();
-}
-
 $productModel = new Product($conn);
 $products = $productModel->getProducts();
 ?>

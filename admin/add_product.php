@@ -3,10 +3,6 @@ require_once "../models/Product.php";
 require_once "../config/database.php"; // Kết nối CSDL
 require_once "../public/session.php"; // Quản lý phiên
 checkAdmin();
-if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit();
-}
 
 $productModel = new Product($conn);
 
@@ -22,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $category_id = $_POST["category_id"];
 
     if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-        $targetDir = "../uploads/"; // Thư mục lưu ảnh
+        $targetDir = "../uploads/product"; // Thư mục lưu ảnh
         $fileName = time() . "_" . basename($_FILES["image"]["name"]);
         $targetFilePath = $targetDir . $fileName;
 

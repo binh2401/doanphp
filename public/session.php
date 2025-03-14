@@ -36,3 +36,29 @@ function logout()
     header("Location: /doanphp/views/login.php");
     exit();
 }
+
+// Hàm thêm sản phẩm vào giỏ hàng
+function addToCart($product_id, $quantity = 1)
+{
+    if (!isset($_SESSION["cart"])) {
+        $_SESSION["cart"] = [];
+    }
+
+    if (isset($_SESSION["cart"][$product_id])) {
+        $_SESSION["cart"][$product_id] += $quantity;
+    } else {
+        $_SESSION["cart"][$product_id] = $quantity;
+    }
+}
+
+// Hàm tính tổng tiền trong giỏ hàng
+function getTotalCartAmount()
+{
+    $total = 0;
+    if (isset($_SESSION["cart"])) {
+        foreach ($_SESSION["cart"] as $item) {
+            $total += $item["price"] * $item["quantity"];
+        }
+    }
+    return $total;
+}

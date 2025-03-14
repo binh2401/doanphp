@@ -19,9 +19,11 @@ class Product
 
 
     // Lấy danh sách sản phẩm
+
     public function getProducts()
     {
-        $stmt = $this->conn->query("SELECT * FROM products ORDER BY created_at DESC");
+        $stmt = $this->conn->prepare("SELECT id, name, price, description, image, sold_quantity FROM products");
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
