@@ -53,21 +53,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Thêm danh mục</title>
-</head>
+<?php include 'header_admin.php'; ?>
 
 <body>
-    <h2>Thêm danh mục</h2>
-    <form method="post" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Tên danh mục" required><br>
-        <input type="file" name="image" accept="image/*" required><br>
-        <button type="submit">Thêm danh mục</button>
-    </form>
+    <div class="pc-container">
+        <h2>Thêm danh mục</h2>
+        <form method="post" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Tên danh mục" required><br>
+            <input type="file" name="image" accept="image/*" required><br>
+            <button type="submit">Thêm danh mục</button>
+        </form>
+    </div>
 </body>
 
-</html>
+<?php include 'footer_admin.php'; ?>

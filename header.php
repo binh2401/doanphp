@@ -352,7 +352,7 @@
                   <?php endif; ?>
               </ul>
 
-              <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+              <button class="w-100 btn btn-primary btn-lg" type="button" onclick="window.location.href='checkcart.php'">Continue to checkout</button>
           </div>
       </div>
   </div>
@@ -529,7 +529,7 @@
                   class="col-sm-4 col-lg-2 text-center text-sm-start d-flex gap-3 justify-content-center justify-content-md-start">
                   <div class="d-flex align-items-center my-3 my-sm-0">
                       <a href="index.html">
-                          <img src="images/logo.svg" alt="logo" class="img-fluid">
+                          <img src="uploads/logo.jpg" alt="logo" class="img-fluid" style="width: 150px; height: auto;">
                       </a>
                   </div>
                   <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
@@ -568,19 +568,15 @@
                   <ul
                       class="navbar-nav list-unstyled d-flex flex-row gap-3 gap-lg-5 justify-content-center flex-wrap align-items-center mb-0 fw-bold text-uppercase text-dark">
                       <li class="nav-item active">
-                          <a href="index.html" class="nav-link">Home</a>
+                          <a href="index.php" class="nav-link">Home</a>
                       </li>
                       <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle pe-3" role="button" id="pages" data-bs-toggle="dropdown"
                               aria-expanded="false">Pages</a>
                           <ul class="dropdown-menu border-0 p-3 rounded-0 shadow" aria-labelledby="pages">
-                              <li><a href="index.html" class="dropdown-item">About Us </a></li>
-                              <li><a href="index.html" class="dropdown-item">Shop </a></li>
-                              <li><a href="index.html" class="dropdown-item">Single Product </a></li>
-                              <li><a href="index.html" class="dropdown-item">Cart </a></li>
-                              <li><a href="index.html" class="dropdown-item">Checkout </a></li>
-                              <li><a href="index.html" class="dropdown-item">Blog </a></li>
-                              <li><a href="index.html" class="dropdown-item">Single Post </a></li>
+                              <li><a href="checkcart.php" class="dropdown-item">Cart </a></li>
+                              <li><a href=" wishlist.php" class="dropdown-item"> wishlist </a></li>
+                              <li><a href="order_history.php" class="dropdown-item">order history</a></li>
                               <li><a href="index.html" class="dropdown-item">Styles </a></li>
                               <li><a href="index.html" class="dropdown-item">Contact </a></li>
                               <li><a href="index.html" class="dropdown-item">Thank You </a></li>
@@ -599,6 +595,9 @@
                                   <img src="<?= $_SESSION['user']['image'] ?>" alt="User Image" class="rounded-circle" width="50" height="50">
                               </a>
                               <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                  <?php if ($_SESSION['user']['role'] === 'admin'): ?>
+                                      <li><a class="dropdown-item" href="admin/manage_products.php">Admin</a></li>
+                                  <?php endif; ?>
                                   <li><a class="dropdown-item" href="profile.php">Profile</a></li>
                                   <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                               </ul>

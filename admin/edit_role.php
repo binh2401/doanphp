@@ -32,25 +32,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Sửa vai trò người dùng</title>
-</head>
+<?php include 'header_admin.php'; ?>
 
 <body>
-    <h2>Sửa vai trò người dùng</h2>
-    <form method="post">
-        <label for="role">Vai trò:</label>
-        <select name="role" id="role" required>
-            <option value="user" <?= $user["role"] == "user" ? "selected" : "" ?>>User</option>
-            <option value="admin" <?= $user["role"] == "admin" ? "selected" : "" ?>>Admin</option>
-        </select><br>
-        <button type="submit">Cập nhật</button>
-    </form>
-    <a href="manage_users.php">Quay lại</a>
+    <div class="pc-container">
+        <h2>Sửa vai trò người dùng</h2>
+        <form method="post">
+            <label for="role">Vai trò:</label>
+            <select name="role" id="role" required>
+                <option value="user" <?= $user["role"] == "user" ? "selected" : "" ?>>User</option>
+                <option value="admin" <?= $user["role"] == "admin" ? "selected" : "" ?>>Admin</option>
+            </select><br>
+            <button type="submit">Cập nhật</button>
+        </form>
+        <a href="manage_users.php">Quay lại</a>
+    </div>
 </body>
 
-</html>
+<?php include 'footer_admin.php'; ?>

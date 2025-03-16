@@ -19,18 +19,20 @@ if (!$product) {
 // Xử lý thêm bình luận
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["comment"])) {
     $comment = trim($_POST["comment"]);
-    if (!empty($comment)) {
-        $stmt = $conn->prepare("INSERT INTO comments (product_id, user_id, comment) VALUES (:product_id, :user_id, :comment)");
+    $rating = isset($_POST["rating"]) ? (int)$_POST["rating"] : 0;
+    if (!empty($comment) && $rating > 0 && $rating <= 5) {
+        $stmt = $conn->prepare("INSERT INTO comments (product_id, user_id, comment, rating) VALUES (:product_id, :user_id, :comment, :rating)");
         $stmt->bindParam(":product_id", $_GET["id"]);
         $stmt->bindParam(":user_id", $_SESSION["user_id"]);
         $stmt->bindParam(":comment", $comment);
+        $stmt->bindParam(":rating", $rating);
         if ($stmt->execute()) {
             echo "Bình luận của bạn đã được thêm!";
         } else {
             echo "Lỗi khi thêm bình luận!";
         }
     } else {
-        echo "Bình luận không được để trống!";
+        echo "Bình luận và đánh giá sao không được để trống!";
     }
 }
 
@@ -47,7 +49,7 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <img src="uploads/<?= htmlspecialchars($product["image"]) ?>" class="img-fluid" alt="<?= htmlspecialchars($product["name"]) ?>">
+                <img src="uploads/product/<?= htmlspecialchars($product["image"]) ?>" class="img-fluid" alt="<?= htmlspecialchars($product["name"]) ?>">
             </div>
             <div class="col-md-6">
                 <h2><?= htmlspecialchars($product["name"]) ?></h2>
@@ -65,6 +67,16 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="mb-3">
                         <textarea name="comment" class="form-control" placeholder="Viết bình luận của bạn..." required></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="rating">Đánh giá:</label>
+                        <select name="rating" id="rating" class="form-control" required>
+                            <option value="1">1 sao</option>
+                            <option value="2">2 sao</option>
+                            <option value="3">3 sao</option>
+                            <option value="4">4 sao</option>
+                            <option value="5">5 sao</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Gửi bình luận</button>
                 </form>
             <?php else: ?>
@@ -76,6 +88,7 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="mb-3">
                         <strong><?= htmlspecialchars($comment["username"]) ?></strong> (<?= $comment["created_at"] ?>):
                         <p><?= htmlspecialchars($comment["comment"]) ?></p>
+                        <p>Đánh giá: <?= str_repeat('★', $comment["rating"]) . str_repeat('☆', 5 - $comment["rating"]) ?></p>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

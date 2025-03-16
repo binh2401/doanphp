@@ -32,23 +32,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Sửa sản phẩm</title>
-</head>
+<?php include 'header_admin.php'; ?>
 
 <body>
-    <h2>Sửa sản phẩm</h2>
-    <form method="post">
-        <input type="text" name="name" value="<?= $product["name"] ?>" required><br>
-        <input type="number" name="price" value="<?= $product["price"] ?>" required><br>
-        <textarea name="description"><?= $product["description"] ?></textarea><br>
-        <input type="text" name="image" value="<?= $product["image"] ?>"><br>
-        <button type="submit">Cập nhật</button>
-    </form>
+    <div class="pc-container">
+        <h2>Sửa sản phẩm</h2>
+        <form method="post">
+            <input type="text" name="name" value="<?= $product["name"] ?>" required><br>
+            <input type="number" name="price" value="<?= $product["price"] ?>" required><br>
+            <textarea name="description"><?= $product["description"] ?></textarea><br>
+            <input type="text" name="image" value="<?= $product["image"] ?>"><br>
+            <button type="submit">Cập nhật</button>
+        </form>
+    </div>
 </body>
 
-</html>
+<?php include 'footer_admin.php'; ?>

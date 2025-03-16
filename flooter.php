@@ -11,7 +11,7 @@
                 <article class="post-item card border-0 shadow-sm p-3">
                     <div class="image-holder zoom-effect">
                         <a href="#">
-                            <img src="images/post-thumbnail-1.jpg" alt="post" class="card-img-top">
+                            <img src="uploads/4.png" alt="post" class="card-img-top">
                         </a>
                     </div>
                     <div class="card-body">
@@ -104,7 +104,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <img src="images/banner-onlineapp.png" alt="phone" class="img-fluid">
+                        <img src="uploads/4.png" alt="phone" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -215,7 +215,7 @@
 
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer-menu">
-                    <img src="images/logo.svg" width="240" height="70" alt="logo">
+                    <img src="uploads/logo.jpg" width="240" height="70" alt="logo">
                     <div class="social-links mt-3">
                         <ul class="d-flex list-unstyled gap-2">
                             <li>
@@ -368,6 +368,26 @@
     crossorigin="anonymous"></script>
 <script src="js/plugins.js"></script>
 <script src="js/script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const heartButtons = document.querySelectorAll('.btn-heart');
+        heartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-product-id');
+                const action = this.classList.contains('btn-danger') ? 'remove' : 'add';
+                // Gửi yêu cầu AJAX để thêm hoặc xóa sản phẩm khỏi danh sách yêu thích
+                fetch(`wishlist.php?action=${action}&id=${productId}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Thay đổi màu sắc của nút "tym" dựa trên hành động
+                        this.classList.toggle('btn-outline-dark');
+                        this.classList.toggle('btn-danger');
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const cartButtons = document.querySelectorAll('.btn-cart');

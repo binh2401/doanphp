@@ -9,114 +9,18 @@ checkLogin(); // Kiểm tra xem người dùng đã đăng nhập hay chưa
 $productModel = new Product($conn);
 $products = $productModel->getProducts();
 $totalCartAmount = getTotalCartAmount(); // Tính tổng tiền trong giỏ hàng
-$stmt = $conn->prepare("SELECT name, image FROM categories");
+$stmt = $conn->prepare("SELECT id, name, image FROM categories"); // Thêm 'id' vào truy vấn
 $stmt->execute();
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Lấy danh sách sản phẩm yêu thích của người dùng
+$userId = $_SESSION["user_id"];
+$stmt = $conn->prepare("SELECT product_id FROM wishlist WHERE user_id = ?");
+$stmt->execute([$userId]);
+$wishlist = $stmt->fetchAll(PDO::FETCH_COLUMN);
 ?>
 
-
 <?php include 'header.php'; ?>
-<section style="background-image: url('images/banner-1.jpg');background-repeat: no-repeat;background-size: cover;">
-    <div class="container-lg">
-        <div class="row">
-            <div class="col-lg-6 pt-5 mt-5">
-                <h2 class="display-1 ls-1"><span class="fw-bold text-primary">Organic</span> Foods at your <span
-                        class="fw-bold">Doorsteps</span></h2>
-                <p class="fs-4">Dignissim massa diam elementum.</p>
-                <div class="d-flex gap-3">
-                    <a href="#" class="btn btn-primary text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Start Shopping</a>
-                    <a href="#" class="btn btn-dark text-uppercase fs-6 rounded-pill px-4 py-3 mt-3">Join Now</a>
-                </div>
-                <div class="row my-5">
-                    <div class="col">
-                        <div class="row text-dark">
-                            <div class="col-auto">
-                                <p class="fs-1 fw-bold lh-sm mb-0">14k+</p>
-                            </div>
-                            <div class="col">
-                                <p class="text-uppercase lh-sm mb-0">Product Varieties</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row text-dark">
-                            <div class="col-auto">
-                                <p class="fs-1 fw-bold lh-sm mb-0">50k+</p>
-                            </div>
-                            <div class="col">
-                                <p class="text-uppercase lh-sm mb-0">Happy Customers</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="row text-dark">
-                            <div class="col-auto">
-                                <p class="fs-1 fw-bold lh-sm mb-0">10+</p>
-                            </div>
-                            <div class="col">
-                                <p class="text-uppercase lh-sm mb-0">Store Locations</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-3 g-0 justify-content-center">
-            <div class="col">
-                <div class="card border-0 bg-primary rounded-0 p-4 text-light">
-                    <div class="row">
-                        <div class="col-md-3 text-center">
-                            <svg width="60" height="60">
-                                <use xlink:href="#fresh"></use>
-                            </svg>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="card-body p-0">
-                                <h5 class="text-light">Fresh from farm</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card border-0 bg-secondary rounded-0 p-4 text-light">
-                    <div class="row">
-                        <div class="col-md-3 text-center">
-                            <svg width="60" height="60">
-                                <use xlink:href="#organic"></use>
-                            </svg>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="card-body p-0">
-                                <h5 class="text-light">100% Organic</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card border-0 bg-danger rounded-0 p-4 text-light">
-                    <div class="row">
-                        <div class="col-md-3 text-center">
-                            <svg width="60" height="60">
-                                <use xlink:href="#delivery"></use>
-                            </svg>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="card-body p-0">
-                                <h5 class="text-light">Free delivery</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipi elit.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+<section style="background-image: url('uploads/1.png'); background-repeat: no-repeat; background-size: contain; height: 60vh; display: flex; justify-content: center; align-items: center;     background-position-x: center;">
 </section>
 
 <body>
@@ -143,7 +47,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="category-carousel swiper">
                         <div class="swiper-wrapper">
                             <?php foreach ($categories as $category): ?>
-                                <a href="category.html" class="nav-link swiper-slide text-center">
+                                <a href="category.php?id=<?= $category['id'] ?>" class="nav-link swiper-slide text-center">
                                     <img src="uploads/<?= $category['image'] ?>" class="rounded-circle" alt="Category Thumbnail">
                                     <h4 class="fs-6 mt-3 fw-normal category-title"><?= $category['name'] ?></h4>
                                 </a>
@@ -166,7 +70,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <h2 class="section-title">Best selling products</h2>
 
                         <div class="d-flex align-items-center">
-                            <a href="#" class="btn btn-primary rounded-1">View All</a>
+                            <a href="all_products.php" class="btn btn-primary rounded-1">View All</a>
                         </div>
                     </div>
 
@@ -178,34 +82,30 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
                         <?php foreach ($products as $product): ?>
+                            <?php
+                            $ratingData = $productModel->getProductRating($product["id"]);
+                            $averageRating = round($ratingData["average_rating"], 1);
+                            $totalReviews = $ratingData["total_reviews"];
+                            $isInWishlist = in_array($product["id"], $wishlist);
+                            ?>
                             <div class="col">
                                 <div class="product-item">
                                     <figure>
                                         <a href="product_detail.php?id=<?= $product["id"] ?>" title="Product Title">
-                                            <img src="uploads/<?= $product["image"] ?>" alt="Product Thumbnail" class="tab-image">
+                                            <img src="uploads/product/<?= $product["image"] ?>" alt="Product Thumbnail" class="tab-image">
                                         </a>
                                     </figure>
                                     <div class="d-flex flex-column text-center">
                                         <h3 class="fs-6 fw-normal"><?= $product["name"] ?></h3>
                                         <div>
                                             <span class="rating">
-                                                <svg width="18" height="18" class="text-warning">
-                                                    <use xlink:href="#star-full"></use>
-                                                </svg>
-                                                <svg width="18" height="18" class="text-warning">
-                                                    <use xlink:href="#star-full"></use>
-                                                </svg>
-                                                <svg width="18" height="18" class="text-warning">
-                                                    <use xlink:href="#star-full"></use>
-                                                </svg>
-                                                <svg width="18" height="18" class="text-warning">
-                                                    <use xlink:href="#star-full"></use>
-                                                </svg>
-                                                <svg width="18" height="18" class="text-warning">
-                                                    <use xlink:href="#star-half"></use>
-                                                </svg>
+                                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                    <svg width="18" height="18" class="text-warning">
+                                                        <use xlink:href="#<?= $i <= $averageRating ? 'star-full' : 'star-empty' ?>"></use>
+                                                    </svg>
+                                                <?php endfor; ?>
                                             </span>
-                                            <span>(<?= isset($product["sold_quantity"]) ? $product["sold_quantity"] : 0 ?> sold)</span>
+                                            <span>(<?= $totalReviews ?> reviews)</span>
                                         </div>
                                         <div class="d-flex justify-content-center align-items-center gap-2">
                                             <span class="text-dark fw-semibold">$<?= $product["price"] ?></span>
@@ -223,11 +123,11 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                                     </a>
                                                 </div>
                                                 <div class="col-2">
-                                                    <a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6">
+                                                    <button class="btn <?= $isInWishlist ? 'btn-danger' : 'btn-outline-dark' ?> rounded-1 p-2 fs-6 btn-heart" data-product-id="<?= $product["id"] ?>">
                                                         <svg width="18" height="18">
                                                             <use xlink:href="#heart"></use>
                                                         </svg>
-                                                    </a>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -237,8 +137,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php endforeach; ?>
                     </div>
                     <!-- / product-grid -->
-
-
                 </div>
             </div>
         </div>
@@ -252,29 +150,29 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <div class="banner-blocks">
 
                         <div class="banner-ad d-flex align-items-center large bg-info block-1"
-                            style="background: url('images/banner-ad-1.jpg') no-repeat; background-size: cover;">
+                            style="background: url('uploads/2.png') no-repeat; background-size: cover;">
                             <div class="banner-content p-5">
                                 <div class="content-wrapper text-light">
-                                    <h3 class="banner-title text-light">Items on SALE</h3>
-                                    <p>Discounts up to 30%</p>
-                                    <a href="#" class="btn-link text-white">Shop Now</a>
+                                    <h3 class="banner-title text-light"></h3>
+                                    <p></p>
+                                    <a href="#" class="btn-link text-white"></a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="banner-ad bg-success-subtle block-2"
-                            style="background:url('images/banner-ad-2.jpg') no-repeat;background-size: cover">
+                            style="background:url('uploads/4.png') no-repeat;background-size: cover">
                             <div class="banner-content align-items-center p-5">
                                 <div class="content-wrapper text-light">
-                                    <h3 class="banner-title text-light">Combo offers</h3>
-                                    <p>Discounts up to 50%</p>
-                                    <a href="#" class="btn-link text-white">Shop Now</a>
+                                    <h3 class="banner-title text-light"></h3>
+                                    <p></p>
+                                    <a href="#" class="btn-link text-white"></a>
                                 </div>
                             </div>
                         </div>
 
                         <div class="banner-ad bg-danger block-3"
-                            style="background:url('images/banner-ad-3.jpg') no-repeat;background-size: cover">
+                            style="background:url('uploads/3.png') no-repeat;background-size: cover">
                             <div class="banner-content align-items-center p-5">
                                 <div class="content-wrapper text-light">
                                     <h3 class="banner-title text-light">Discount Coupons</h3>

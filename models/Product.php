@@ -48,4 +48,20 @@ class Product
         $stmt = $this->conn->prepare("DELETE FROM products WHERE id = ?");
         return $stmt->execute([$id]);
     }
+    public function getProductsByCategory($category_id)
+    {
+        $stmt = $this->conn->prepare("SELECT id, name, price, description, image FROM products WHERE category_id = ?");
+        $stmt->execute([$category_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getProductRating($product_id)
+    {
+        $stmt = $this->conn->prepare("SELECT AVG(rating) as average_rating, COUNT(rating) as total_reviews FROM comments WHERE product_id = ?");
+        $stmt->execute([$product_id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result['average_rating'] === null) {
+            $result['average_rating'] = 0;
+        }
+        return $result;
+    }
 }

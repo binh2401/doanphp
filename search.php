@@ -1,6 +1,7 @@
 <?php
 require_once "config/database.php";
-
+require_once "public/session.php"; // Quản lý phiên
+checkLogin();
 $query = isset($_GET['query']) ? trim($_GET['query']) : '';
 
 if ($query) {
@@ -12,14 +13,7 @@ if ($query) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Search Results</title>
-    <link rel="stylesheet" href="path/to/your/css/styles.css">
-</head>
+<?php include 'header.php'; ?>
 
 <body>
     <div class="container-lg">
@@ -91,4 +85,4 @@ if ($query) {
     </div>
 </body>
 
-</html>
+<?php include 'flooter.php'; ?>

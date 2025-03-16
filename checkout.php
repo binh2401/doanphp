@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../config/database.php";
+require_once "config/database.php";
 
 if (!isset($_SESSION["user"])) {
     header("Location: login.php");
@@ -20,13 +20,13 @@ foreach ($_SESSION["cart"] as $item) {
 }
 
 // Lưu đơn hàng vào bảng orders
-$stmt = $conn->prepare("INSERT INTO orders (user_id, total_price) VALUES (?, ?)");
+$stmt = $conn->prepare("INSERT INTO orders (user_id, total_amount, order_date) VALUES (?, ?, NOW())");
 $stmt->execute([$userId, $totalPrice]);
 $orderId = $conn->lastInsertId();
 
 // Lưu chi tiết đơn hàng
 foreach ($_SESSION["cart"] as $item) {
-    $stmt = $conn->prepare("INSERT INTO order_details (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO order_detail (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
     $stmt->execute([$orderId, $item["id"], $item["quantity"], $item["price"]]);
 }
 

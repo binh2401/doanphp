@@ -44,32 +44,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Thêm sản phẩm</title>
-</head>
+<?php include 'header_admin.php'; ?>
 
 <body>
-    <h2>Thêm sản phẩm</h2>
-    <form method="post" enctype="multipart/form-data">
-        <input type="text" name="name" placeholder="Tên sản phẩm" required><br>
-        <input type="number" name="price" placeholder="Giá" required><br>
-        <textarea name="description" placeholder="Mô tả"></textarea><br>
+    <div class="pc-container">
+        <h2>Thêm sản phẩm</h2>
+        <form method="post" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Tên sản phẩm" required><br>
+            <input type="number" name="price" placeholder="Giá" required><br>
+            <textarea name="description" placeholder="Mô tả"></textarea><br>
 
-        <!-- Chọn danh mục -->
-        <select name="category_id" required>
-            <option value="">-- Chọn danh mục --</option>
-            <?php foreach ($categories as $category): ?>
-                <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
-            <?php endforeach; ?>
-        </select><br>
+            <!-- Chọn danh mục -->
+            <select name="category_id" required>
+                <option value="">-- Chọn danh mục --</option>
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category['id'] ?>"><?= $category['name'] ?></option>
+                <?php endforeach; ?>
+            </select><br>
 
-        <input type="file" name="image" required><br>
-        <button type="submit">Thêm sản phẩm</button>
-    </form>
+            <input type="file" name="image" required><br>
+            <button type="submit">Thêm sản phẩm</button>
+        </form>
+    </div>
 </body>
 
-</html>
+<?php include 'footer_admin.php'; ?>
