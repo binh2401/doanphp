@@ -45,6 +45,15 @@ class Product
     // Xóa sản phẩm
     public function deleteProduct($id)
     {
+        // Xóa các bản ghi liên quan trong bảng order_detail
+        $stmt = $this->conn->prepare("DELETE FROM order_detail WHERE product_id = ?");
+        $stmt->execute([$id]);
+
+        // Xóa các bản ghi liên quan trong bảng comments
+        $stmt = $this->conn->prepare("DELETE FROM comments WHERE product_id = ?");
+        $stmt->execute([$id]);
+
+        // Xóa sản phẩm
         $stmt = $this->conn->prepare("DELETE FROM products WHERE id = ?");
         return $stmt->execute([$id]);
     }

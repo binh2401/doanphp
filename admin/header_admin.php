@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-    <title>Home | Mantis Bootstrap 5 Admin Template</title>
+    <title>ADMIN ALPHA</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -45,38 +45,35 @@
             <div class="m-header">
                 <a href="../dashboard/index.html" class="b-brand text-primary">
                     <!-- ========   Change your logo from here   ============ -->
-                    <img src="../assets/images/logo-dark.svg" class="img-fluid logo-lg" alt="logo">
+                    <img src="assets/images/logo.jpg" class="img-fluid logo-lg" alt="logo">
                 </a>
             </div>
             <div class="navbar-content">
                 <ul class="pc-navbar">
                     <li class="pc-item">
-                        <a href="manage_products.php" class="pc-link">
+                        <a href="revenue.php" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-dashboard"></i></span>
-                            <span class="pc-mtext">product</span>
+                            <span class="pc-mtext">revenue</span>
                         </a>
                     </li>
 
-                    <li class="pc-item pc-caption">
-                        <label>UI Components</label>
-                        <i class="ti ti-dashboard"></i>
-                    </li>
+
                     <li class="pc-item">
                         <a href="../elements/bc_typography.html" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-typography"></i></span>
-                            <span class="pc-mtext">Typography</span>
+                            <span class="pc-mtext">category</span>
                         </a>
                     </li>
                     <li class="pc-item">
-                        <a href="../elements/bc_color.html" class="pc-link">
+                        <a href="manage_users.php" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-color-swatch"></i></span>
-                            <span class="pc-mtext">Color</span>
+                            <span class="pc-mtext">user</span>
                         </a>
                     </li>
                     <li class="pc-item">
-                        <a href="../elements/icon-tabler.html" class="pc-link">
+                        <a href="manage_products.php" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-plant-2"></i></span>
-                            <span class="pc-mtext">Icons</span>
+                            <span class="pc-mtext">product</span>
                         </a>
                     </li>
 
