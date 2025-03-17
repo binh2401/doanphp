@@ -1,11 +1,12 @@
 <?php
-require_once "../config/database.php";
+require_once "../config/database.php"; // Kết nối CSDL
+require_once "../models/Category.php";
 require_once "../public/session.php"; // Quản lý phiên
-checkAdmin(); // Kiểm tra xem user có phải admin không
 
-$stmt = $conn->prepare("SELECT * FROM users");
-$stmt->execute();
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+checkAdmin(); // Kiểm tra xem người dùng có phải là admin hay không
+
+$categoryModel = new Category($conn);
+$categories = $categoryModel->getCategories();
 ?>
 
 <?php include 'header_admin.php'; ?>
@@ -15,27 +16,25 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="pc-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mb-4">Quản lý người dùng</h2>
+                    <h2 class="mb-4">Danh sách thể loại</h2>
+                    <a href="add_category.php" class="btn btn-primary mb-3">Thêm thể loại</a>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead class="thead-light">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Tên người dùng</th>
-                                    <th>Email</th>
-                                    <th>Vai trò</th>
+                                    <th>Tên</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($users as $user): ?>
+                                <?php foreach ($categories as $category): ?>
                                     <tr>
-                                        <td><?= htmlspecialchars($user["id"]) ?></td>
-                                        <td><?= htmlspecialchars($user["username"]) ?></td>
-                                        <td><?= htmlspecialchars($user["email"]) ?></td>
-                                        <td><?= htmlspecialchars($user["role"]) ?></td>
+                                        <td><?= htmlspecialchars($category["id"]) ?></td>
+                                        <td><?= htmlspecialchars($category["name"]) ?></td>
                                         <td>
-                                            <a href="edit_role.php?id=<?= htmlspecialchars($user["id"]) ?>" class="btn btn-sm btn-warning">Sửa vai trò</a>
+                                            <a href="edit_category.php?id=<?= htmlspecialchars($category["id"]) ?>" class="btn btn-sm btn-warning">Sửa</a>
+                                            <a href="delete_category.php?id=<?= htmlspecialchars($category["id"]) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Xóa thể loại này?')">Xóa</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

@@ -16,9 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(":role", $role);
     $stmt->bindParam(":id", $user_id);
     if ($stmt->execute()) {
-        echo "Cập nhật vai trò thành công! <a href='manage_users.php'>Quay lại</a>";
+        echo "<div class='alert alert-success'>Cập nhật vai trò thành công! <a href='manage_users.php'>Quay lại</a></div>";
     } else {
-        echo "Lỗi khi cập nhật vai trò!";
+        echo "<div class='alert alert-danger'>Lỗi khi cập nhật vai trò!</div>";
     }
 } else {
     $stmt = $conn->prepare("SELECT * FROM users WHERE id = :id");
@@ -36,16 +36,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="pc-container">
-        <h2>Sửa vai trò người dùng</h2>
-        <form method="post">
-            <label for="role">Vai trò:</label>
-            <select name="role" id="role" required>
-                <option value="user" <?= $user["role"] == "user" ? "selected" : "" ?>>User</option>
-                <option value="admin" <?= $user["role"] == "admin" ? "selected" : "" ?>>Admin</option>
-            </select><br>
-            <button type="submit">Cập nhật</button>
-        </form>
-        <a href="manage_users.php">Quay lại</a>
+        <div class="pc-content">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h2 class="mb-4">Sửa vai trò người dùng</h2>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Vai trò</label>
+                            <select name="role" id="role" class="form-select" required>
+                                <option value="user" <?= $user["role"] == "user" ? "selected" : "" ?>>User</option>
+                                <option value="admin" <?= $user["role"] == "admin" ? "selected" : "" ?>>Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                        <a href="manage_users.php" class="btn btn-secondary">Quay lại</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

@@ -34,7 +34,7 @@ $totalAmount = array_sum(array_map(function ($item) {
                         <h6 class="my-0"><?= $item['name'] ?></h6>
                         <small class="text-body-secondary"><?= $item['description'] ?></small>
                     </div>
-                    <span class="text-body-secondary">$<?= $item['price'] ?></span>
+                    <span class="text-body-secondary"><?= number_format($item['price'], 0, ',', '.') ?> VNĐ</span>
                     <form method="post" class="d-flex">
                         <input type="hidden" name="product_id" value="<?= $productId ?>">
                         <input type="number" name="quantity" value="<?= $item['quantity'] ?>" class="form-control me-2" min="1">
@@ -43,8 +43,8 @@ $totalAmount = array_sum(array_map(function ($item) {
                 </li>
             <?php endforeach; ?>
             <li class="list-group-item d-flex justify-content-between">
-                <span>Total (USD)</span>
-                <strong>$<?= $totalAmount ?></strong>
+                <span>Total (VNĐ)</span>
+                <strong><?= number_format($totalAmount, 0, ',', '.') ?> VNĐ</strong>
             </li>
         </ul>
 

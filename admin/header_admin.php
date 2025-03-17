@@ -59,7 +59,7 @@
 
 
                     <li class="pc-item">
-                        <a href="../elements/bc_typography.html" class="pc-link">
+                        <a href="manage_category.php" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-typography"></i></span>
                             <span class="pc-mtext">category</span>
                         </a>
@@ -134,21 +134,13 @@
                         </ul>
                     </li>
                     <li class="pc-item">
-                        <a href="../other/sample-page.html" class="pc-link">
+                        <a href="../index.php" class="pc-link">
                             <span class="pc-micon"><i class="ti ti-brand-chrome"></i></span>
-                            <span class="pc-mtext">Sample page</span>
+                            <span class="pc-mtext">Về Trang chính</span>
                         </a>
                     </li>
                 </ul>
-                <div class="card text-center">
-                    <div class="card-body">
-                        <img src="../assets/images/img-navbar-card.png" alt="images" class="img-fluid mb-2">
-                        <h5>Upgrade To Pro</h5>
-                        <p>To get more features and components</p>
-                        <a href="https://codedthemes.com/item/berry-bootstrap-5-admin-template/" target="_blank"
-                            class="btn btn-success">Buy Now</a>
-                    </div>
-                </div>
+
             </div>
         </div>
     </nav>

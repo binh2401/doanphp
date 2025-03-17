@@ -49,7 +49,7 @@ include 'header.php';
                         <div class="product-item">
                             <figure>
                                 <a href="product_detail.php?id=<?= $product["id"] ?>" title="Product Title">
-                                    <img src="uploads/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="tab-image">
+                                    <img src="uploads/product/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="tab-image">
                                 </a>
                             </figure>
                             <div class="d-flex flex-column text-center">

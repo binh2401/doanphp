@@ -3,7 +3,6 @@ require_once "../config/database.php";
 require_once "../public/session.php"; // Quản lý phiên
 checkAdmin(); // Kiểm tra xem user có phải admin không
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST["name"]);
     $image = $_FILES["image"];
@@ -17,19 +16,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Kiểm tra loại tệp
         $allowedTypes = ["jpg", "jpeg", "png", "gif"];
         if (!in_array($imageFileType, $allowedTypes)) {
-            echo "Chỉ cho phép các tệp JPG, JPEG, PNG & GIF.";
+            echo "<div class='alert alert-danger'>Chỉ cho phép các tệp JPG, JPEG, PNG & GIF.</div>";
             exit;
         }
 
         // Kiểm tra xem tệp có tồn tại không
         if (file_exists($targetFile)) {
-            echo "Tệp đã tồn tại.";
+            echo "<div class='alert alert-danger'>Tệp đã tồn tại.</div>";
             exit;
         }
 
         // Kiểm tra kích thước tệp
         if ($image["size"] > 500000) {
-            echo "Kích thước tệp quá lớn.";
+            echo "<div class='alert alert-danger'>Kích thước tệp quá lớn.</div>";
             exit;
         }
 
@@ -40,15 +39,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(":name", $name);
             $stmt->bindParam(":image", $targetFile);
             if ($stmt->execute()) {
-                echo "Thêm danh mục thành công! <a href='manage_categories.php'>Quay lại</a>";
+                echo "<div class='alert alert-success'>Thêm danh mục thành công! <a href='manage_categories.php'>Quay lại</a></div>";
             } else {
-                echo "Lỗi khi thêm danh mục!";
+                echo "<div class='alert alert-danger'>Lỗi khi thêm danh mục!</div>";
             }
         } else {
-            echo "Lỗi khi tải lên tệp.";
+            echo "<div class='alert alert-danger'>Lỗi khi tải lên tệp.</div>";
         }
     } else {
-        echo "Tên danh mục và hình ảnh không được để trống!";
+        echo "<div class='alert alert-danger'>Tên danh mục và hình ảnh không được để trống!</div>";
     }
 }
 ?>
@@ -57,12 +56,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="pc-container">
-        <h2>Thêm danh mục</h2>
-        <form method="post" enctype="multipart/form-data">
-            <input type="text" name="name" placeholder="Tên danh mục" required><br>
-            <input type="file" name="image" accept="image/*" required><br>
-            <button type="submit">Thêm danh mục</button>
-        </form>
+        <div class="pc-content">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h2 class="mb-4">Thêm danh mục</h2>
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Tên danh mục</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Tên danh mục" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Hình ảnh</label>
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Thêm danh mục</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

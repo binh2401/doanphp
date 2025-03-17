@@ -63,6 +63,7 @@ class Product
         $stmt->execute([$category_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public function getProductRating($product_id)
     {
         $stmt = $this->conn->prepare("SELECT AVG(rating) as average_rating, COUNT(rating) as total_reviews FROM comments WHERE product_id = ?");
@@ -72,5 +73,26 @@ class Product
             $result['average_rating'] = 0;
         }
         return $result;
+    }
+
+    public function getBestSellingProducts()
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM products ORDER BY sales DESC LIMIT 10");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTopRatedProducts()
+    {
+        $stmt = $this->conn->prepare("
+            SELECT p.*, COALESCE(AVG(r.rating), 0) AS average_rating
+            FROM products p
+            LEFT JOIN comments r ON p.id = r.product_id
+            GROUP BY p.id
+            ORDER BY average_rating DESC
+            LIMIT 10
+        ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
