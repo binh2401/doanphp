@@ -93,7 +93,7 @@
                  <div class="card">
                      <div class="card-body">
                          <h6 class="mb-2 f-w-400 text-muted">Total Sales</h6>
-                         <h4 class="mb-3">$<?= number_format($totalSales, 2) ?> <span class="badge bg-light-danger border border-danger"><i class="ti ti-trending-down"></i> 27.4%</span></h4>
+                         <h4 class="mb-3"><?= number_format($totalSales, 0, ',', '.') ?> VND <span class="badge bg-light-danger border border-danger"><i class="ti ti-trending-down"></i> 27.4%</span></h4>
                          <p class="mb-0 text-muted text-sm">You made an extra <span class="text-danger">$20,395</span> this year</p>
                      </div>
                  </div>
@@ -123,7 +123,7 @@
                                              <td><?= htmlspecialchars($order['product_name']) ?></td>
                                              <td><?= htmlspecialchars($order['quantity']) ?></td>
 
-                                             <td class="text-end">$<?= number_format($order['price'] * $order['quantity'], 2) ?></td>
+                                             <td class="text-end"><?= number_format($order['price'] * $order['quantity'], 0, ',', '.') ?> VND</td>
                                          </tr>
                                      <?php endforeach; ?>
                                  </tbody>

@@ -8,7 +8,7 @@ if (!isset($_SESSION["user"])) {
 }
 
 if (empty($_SESSION["cart"])) {
-    echo "Giỏ hàng trống!";
+    echo "<div class='alert alert-warning text-center'>Giỏ hàng trống!</div>";
     exit();
 }
 
@@ -36,6 +36,24 @@ foreach ($_SESSION["cart"] as $item) {
 
 // Xóa giỏ hàng sau khi đặt hàng
 unset($_SESSION["cart"]);
+?>
 
-echo "Đặt hàng thành công!";
-echo '<a href="index.php">Quay lại trang chủ</a>';
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt hàng thành công</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow p-4 text-center" style="max-width: 400px;">
+        <h2 class="text-success">Đặt hàng thành công!</h2>
+        <p class="mt-3">Cảm ơn bạn đã mua hàng. Chúng tôi sẽ liên hệ với bạn sớm nhất.</p>
+        <a href="index.php" class="btn btn-primary mt-3">Quay lại trang chủ</a>
+    </div>
+</body>
+
+</html>

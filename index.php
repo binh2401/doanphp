@@ -146,53 +146,6 @@ $topRatedProducts = $productModel->getTopRatedProducts();
         </div>
     </section>
 
-    <section class="py-3">
-        <div class="container-lg">
-            <div class="row">
-                <div class="col-md-12">
-
-                    <div class="banner-blocks">
-
-                        <div class="banner-ad d-flex align-items-center large bg-info block-1"
-                            style="background: url('uploads/2.png') no-repeat; background-size: cover;">
-                            <div class="banner-content p-5">
-                                <div class="content-wrapper text-light">
-                                    <h3 class="banner-title text-light"></h3>
-                                    <p></p>
-                                    <a href="#" class="btn-link text-white"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="banner-ad bg-success-subtle block-2"
-                            style="background:url('uploads/4.png') no-repeat;background-size: cover">
-                            <div class="banner-content align-items-center p-5">
-                                <div class="content-wrapper text-light">
-                                    <h3 class="banner-title text-light"></h3>
-                                    <p></p>
-                                    <a href="#" class="btn-link text-white"></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="banner-ad bg-danger block-3"
-                            style="background:url('uploads/3.png') no-repeat;background-size: cover">
-                            <div class="banner-content align-items-center p-5">
-                                <div class="content-wrapper text-light">
-                                    <h3 class="banner-title text-light">Discount Coupons</h3>
-                                    <p>Discounts up to 40%</p>
-                                    <a href="#" class="btn-link text-white">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- / Banner Blocks -->
-
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section id="featured-products" class="products-carousel">
         <div class="container-lg overflow-hidden py-5">
@@ -201,10 +154,10 @@ $topRatedProducts = $productModel->getTopRatedProducts();
 
                     <div class="section-header d-flex flex-wrap justify-content-between my-4">
 
-                        <h2 class="section-title">Sản phẩm nổi bậc</h2>
+                        <h2 class="section-title">Sản phẩm nổi bật</h2>
 
                         <div class="d-flex align-items-center">
-                            <a href="#" class="btn btn-primary me-2">View All</a>
+                            <a href="Outstanding_product.php" class="btn btn-primary me-2">View All</a>
                             <div class="swiper-buttons">
                                 <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
                                 <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
@@ -292,7 +245,7 @@ $topRatedProducts = $productModel->getTopRatedProducts();
                         <h2 class="section-title">Sản phẩm bán chạy</h2>
 
                         <div class="d-flex align-items-center">
-                            <a href="#" class="btn btn-primary me-2">View All</a>
+                            <a href="best_selling_products.php" class="btn btn-primary me-2">View All</a>
                             <div class="swiper-buttons">
                                 <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
                                 <button class="swiper-next products-carousel-next btn btn-primary">❯</button>

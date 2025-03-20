@@ -65,7 +65,7 @@ include 'header.php';
                                     <span>(<?= $totalReviews ?> reviews)</span>
                                 </div>
                                 <div class="d-flex justify-content-center align-items-center gap-2">
-                                    <span class="text-dark fw-semibold">$<?= $product["price"] ?></span>
+                                    <span class="text-dark fw-semibold"><?= number_format($product["price"], 0, ',', '.') ?> VNĐ</span>
                                 </div>
                                 <div class="button-area p-3 pt-0">
                                     <div class="row g-1 mt-2">

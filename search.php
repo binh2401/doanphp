@@ -24,8 +24,8 @@ if ($query) {
                     <div class="col">
                         <div class="product-item">
                             <figure>
-                                <a href="views/product_detail.php?id=<?= $product["id"] ?>" title="Product Title">
-                                    <img src="uploads/<?= $product["image"] ?>" alt="Product Thumbnail" class="tab-image">
+                                <a href="product_detail.php?id=<?= $product["id"] ?>" title="Product Title">
+                                    <img src="uploads/product/<?= $product["image"] ?>" alt="Product Thumbnail" class="tab-image">
                                 </a>
                             </figure>
                             <div class="d-flex flex-column text-center">
@@ -55,8 +55,8 @@ if ($query) {
                                 </div>
                                 <div class="button-area p-3 pt-0">
                                     <div class="row g-1 mt-2">
-                                        <div class="col-3">
-                                            <input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1">
+                                        <div class="d-flex justify-content-center align-items-center gap-2">
+                                            <span class="text-dark fw-semibold"><?= number_format($product["price"], 0, ',', '.') ?> VNĐ</span>
                                         </div>
                                         <div class="col-7">
                                             <a href="views/cart.php?action=add&id=<?= $product["id"] ?>" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart">
