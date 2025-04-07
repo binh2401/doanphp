@@ -1,11 +1,11 @@
 <?php
 require_once "../config/database.php"; // Kết nối CSDL
-require_once "../models/Category.php";
+require_once "../models/category.php";
 require_once "../public/session.php"; // Quản lý phiên
 
 checkAdmin(); // Kiểm tra xem người dùng có phải là admin hay không
 
-$categoryModel = new Category($conn);
+$categoryModel = new category($conn);
 $categories = $categoryModel->getCategories();
 ?>
 

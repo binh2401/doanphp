@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Đăng ký người dùng
     $userModel = new User($conn);
     if ($userModel->register($username, $email, $password, $targetFile)) {
-        echo "Đăng ký thành công!";
+        header("Location: login.php");
     } else {
         echo "Có lỗi xảy ra khi đăng ký.";
     }

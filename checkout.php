@@ -36,6 +36,20 @@ foreach ($_SESSION["cart"] as $item) {
 
 // Xóa giỏ hàng sau khi đặt hàng
 unset($_SESSION["cart"]);
+
+if (isset($_SESSION['payment_status'])) {
+    $status = $_SESSION['payment_status'];
+    $message = $_SESSION['payment_message'];
+
+    echo "<div class='alert alert-" . ($status === "success" ? "success" : "danger") . " text-center'>";
+    echo htmlspecialchars($message);
+    echo "</div>";
+
+    // Clear the payment status from the session
+    unset($_SESSION['payment_status']);
+    unset($_SESSION['payment_message']);
+}
+
 ?>
 
 <!DOCTYPE html>

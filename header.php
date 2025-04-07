@@ -431,7 +431,7 @@
                                  <?php if ($_SESSION['user']['role'] === 'admin'): ?>
                                      <li><a class="dropdown-item" href="admin/manage_products.php">Admin</a></li>
                                  <?php endif; ?>
-                                 <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                                 <li><a class="dropdown-item" href="edit_pass.php">Đổi mật khẩu</a></li>
                                  <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                              </ul>
                          <?php else: ?>

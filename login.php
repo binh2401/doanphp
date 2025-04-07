@@ -119,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
 
         <div class="bottom-links">
-            <a href="#">Quên mật khẩu?</a>
+            <a href="forgot_password.php">Quên mật khẩu?</a>
             <br>
             <a href="register.php">Đăng ký tài khoản mới</a>
         </div>

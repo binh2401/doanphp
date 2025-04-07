@@ -91,7 +91,7 @@ if (isset($_SESSION['cart'])) {
             <?php endif; ?>
         </ul>
 
-        <a href="checkout.php" class="w-100 btn btn-primary btn-lg">Thanh toán</a>
+        <a href="vnpay_payment.php" class="w-100 btn btn-primary btn-lg">Thanh toán</a>
         <form action="vnpay_payment.php" method="post">
             <input type="hidden" name="amount" value="<?= $totalAmount ?>">
             <button type="submit" class="w-100 btn btn-success btn-lg mt-2">Thanh toán qua VNPay</button>

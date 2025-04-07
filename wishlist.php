@@ -36,87 +36,75 @@ include 'header.php';
 ?>
 
 <body>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="container mt-5">
+        <ul class="list-group mb-3">
             <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
-                <?php foreach ($wishlist as $product): ?>
-                    <?php
-                    $ratingData = $productModel->getProductRating($product["id"]);
-                    $averageRating = round($ratingData["average_rating"], 1);
-                    $totalReviews = $ratingData["total_reviews"];
-                    ?>
-                    <div class="col">
-                        <div class="product-item">
-                            <figure>
-                                <a href="product_detail.php?id=<?= $product["id"] ?>" title="Product Title">
-                                    <img src="uploads/product/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="tab-image">
-                                </a>
-                            </figure>
-                            <div class="d-flex flex-column text-center">
-                                <h3 class="fs-6 fw-normal"><?= $product["name"] ?></h3>
-                                <div>
-                                    <span class="rating">
-                                        <?php for ($i = 1; $i <= 5; $i++): ?>
-                                            <svg width="18" height="18" class="text-warning">
-                                                <use xlink:href="#<?= $i <= $averageRating ? 'star-full' : 'star-empty' ?>"></use>
-                                            </svg>
-                                        <?php endfor; ?>
-                                    </span>
-                                    <span>(<?= $totalReviews ?> reviews)</span>
-                                </div>
-                                <div class="d-flex justify-content-center align-items-center gap-2">
-                                    <span class="text-dark fw-semibold"><?= number_format($product["price"], 0, ',', '.') ?> VNĐ</span>
-                                </div>
-                                <div class="button-area p-3 pt-0">
-                                    <div class="row g-1 mt-2">
-                                        <div class="col-3">
-                                            <input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1">
-                                        </div>
-                                        <div class="col-7">
-                                            <a href="views/cart.php?action=add&id=<?= $product["id"] ?>" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart">
-                                                <svg width="18" height="18">
-                                                    <use xlink:href="#cart"></use>
-                                                </svg> Add to Cart
-                                            </a>
-                                        </div>
-                                        <div class="col-2">
-                                            <button class="btn btn-danger rounded-1 p-2 fs-6 btn-heart" data-product-id="<?= $product['id'] ?>">
-                                                <svg width="18" height="18">
-                                                    <use xlink:href="#heart"></use>
+                <?php if (empty($wishlist)): ?>
+                    <div class="col-12">
+                        <div class="d-flex flex-column justify-content-center align-items-center text-center min-vh-50 py-5">
+
+                            <h5 class="text-muted">Bạn chưa có sản phẩm yêu thích nào.</h5>
+
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <?php foreach ($wishlist as $product): ?>
+                        <?php
+                        $ratingData = $productModel->getProductRating($product["id"]);
+                        $averageRating = round($ratingData["average_rating"], 1);
+                        $totalReviews = $ratingData["total_reviews"];
+                        ?>
+                        <div class="col">
+                            <div class="product-item">
+                                <figure>
+                                    <a href="product_detail.php?id=<?= $product["id"] ?>" title="Product Title">
+                                        <img src="uploads/product/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="tab-image">
+                                    </a>
+                                </figure>
+                                <div class="d-flex flex-column text-center">
+                                    <h3 class="fs-6 fw-normal"><?= $product["name"] ?></h3>
+                                    <div>
+                                        <span class="rating">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <svg width="18" height="18" class="text-warning">
+                                                    <use xlink:href="#<?= $i <= $averageRating ? 'star-full' : 'star-empty' ?>"></use>
                                                 </svg>
-                                            </button>
+                                            <?php endfor; ?>
+                                        </span>
+                                        <span>(<?= $totalReviews ?> reviews)</span>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <span class="text-dark fw-semibold"><?= number_format($product["price"], 0, ',', '.') ?> VNĐ</span>
+                                    </div>
+                                    <div class="button-area p-3 pt-0">
+                                        <div class="row g-1 mt-2">
+                                            <div class="col-3">
+                                                <input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1">
+                                            </div>
+                                            <div class="col-7">
+                                                <a href="views/cart.php?action=add&id=<?= $product["id"] ?>" class="btn btn-primary rounded-1 p-2 fs-7 btn-cart">
+                                                    <svg width="18" height="18">
+                                                        <use xlink:href="#cart"></use>
+                                                    </svg> Add to Cart
+                                                </a>
+                                            </div>
+                                            <div class="col-2">
+                                                <button class="btn btn-danger rounded-1 p-2 fs-6 btn-heart" data-product-id="<?= $product['id'] ?>">
+                                                    <svg width="18" height="18">
+                                                        <use xlink:href="#heart"></use>
+                                                    </svg>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
-            <!-- / product-grid -->
-        </div>
+    </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const heartButtons = document.querySelectorAll('.btn-heart');
-            heartButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-product-id');
-                    const action = 'remove';
-                    // Gửi yêu cầu AJAX để xóa sản phẩm khỏi danh sách yêu thích
-                    fetch(`wishlist.php?action=${action}&id=${productId}`)
-                        .then(response => response.text())
-                        .then(data => {
-                            // Thay đổi màu sắc của nút "tym" dựa trên hành động
-                            this.classList.toggle('btn-outline-dark');
-                            this.classList.toggle('btn-danger');
-                        })
-                        .catch(error => console.error('Error:', error));
-                });
-            });
-        });
-    </script>
-</body>
 
-<?php include 'flooter.php'; ?>
+    <?php include 'flooter.php'; ?>
