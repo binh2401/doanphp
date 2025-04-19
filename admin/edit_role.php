@@ -16,7 +16,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(":role", $role);
     $stmt->bindParam(":id", $user_id);
     if ($stmt->execute()) {
-        echo "<div class='alert alert-success'>Cập nhật vai trò thành công! <a href='manage_users.php'>Quay lại</a></div>";
+        // Chuyển hướng về chính trang này với thông báo thành công
+        header("Location: edit_role.php?id=$user_id&success=1");
+        exit();
     } else {
         echo "<div class='alert alert-danger'>Lỗi khi cập nhật vai trò!</div>";
     }
@@ -33,6 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php include 'header_admin.php'; ?>
+
+<?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+    <div class="alert alert-success text-center" role="alert">
+        Vai trò đã được cập nhật thành công!
+    </div>
+<?php endif; ?>
 
 <body>
     <div class="pc-container">

@@ -25,6 +25,11 @@ $topRatedProducts = $productModel->getTopRatedProducts();
 ?>
 
 <?php include 'header.php'; ?>
+<?php if (isset($_GET['added']) && $_GET['added'] == 'success'): ?>
+    <div class="alert alert-success text-center" role="alert">
+        Sản phẩm đã được thêm vào giỏ hàng thành công!
+    </div>
+<?php endif; ?>
 <section style="background-image: url('uploads/1.png'); background-repeat: no-repeat; background-size: contain; height: 60vh; display: flex; justify-content: center; align-items: center;     background-position-x: center;">
 </section>
 

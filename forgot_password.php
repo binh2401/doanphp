@@ -31,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com'; // SMTP server
         $mail->SMTPAuth = true;
-
+        $mail->Username = ''; // Email của bạn
+        $mail->Password = ''; // Mật khẩu email
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 

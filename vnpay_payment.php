@@ -9,7 +9,10 @@ if (!isset($_POST['amount']) || empty($_POST['amount'])) {
 $totalAmount = $_POST['amount'];
 $_SESSION["cart_total"] = $totalAmount;
 
-
+$vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+$vnp_Returnurl = "http://localhost/doanphp/checkout.php"; // URL sau thanh toán
+$vnp_TmnCode = "VI1OLR26"; // Mã website
+$vnp_HashSecret = "SO86DF6B0ID6FO5E286CM31R7QE7VL43"; // Secret Key
 
 $vnp_TxnRef = uniqid(); // Mã giao dịch
 $vnp_OrderInfo = "Thanh toán đơn hàng";

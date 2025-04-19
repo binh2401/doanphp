@@ -2,6 +2,7 @@
 session_start();
 require_once "config/database.php"; // Include database connection
 
+$vnp_HashSecret = "SO86DF6B0ID6FO5E286CM31R7QE7VL43"; // Your VNPay HashSecret
 
 // Get all VNPay response parameters
 $inputData = array();

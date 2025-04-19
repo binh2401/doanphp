@@ -32,6 +32,7 @@ $categories = $categoryModel->getCategories();
                                     <tr>
                                         <td><?= htmlspecialchars($category["id"]) ?></td>
                                         <td><?= htmlspecialchars($category["name"]) ?></td>
+                                        <td><img src="<?= htmlspecialchars($category["image"]) ?>" width="50" alt="<?= htmlspecialchars($category["name"]) ?>" width="50" alt="<?= htmlspecialchars($category["name"]) ?>"></td>
                                         <td>
                                             <a href="edit_category.php?id=<?= htmlspecialchars($category["id"]) ?>" class="btn btn-sm btn-warning">Sửa</a>
                                             <a href="delete_category.php?id=<?= htmlspecialchars($category["id"]) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Xóa thể loại này?')">Xóa</a>

@@ -2,42 +2,60 @@
 require_once "config/database.php";
 require_once "models/User.php";
 
+$error = ""; // Biến lưu lỗi
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST["username"];
-    $email = $_POST["email"];
+    $username = trim($_POST["username"]);
+    $email = trim($_POST["email"]);
     $password = $_POST["password"];
     $image = $_FILES["image"];
 
-    // Xử lý tải lên hình ảnh
-    $targetDir = "uploads/user/";
-    $targetFile = $targetDir . basename($image["name"]);
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    // Kiểm tra xem username hoặc email đã tồn tại
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
+    $stmt->bindParam(":username", $username);
+    $stmt->bindParam(":email", $email);
+    $stmt->execute();
+    $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Kiểm tra loại tệp
-    $allowedTypes = ["jpg", "jpeg", "png", "gif"];
-    if (!in_array($imageFileType, $allowedTypes)) {
-        echo "Chỉ cho phép các tệp JPG, JPEG, PNG và GIF.";
-        exit();
-    }
-
-    // Kiểm tra kích thước tệp
-    if ($image["size"] > 5000000) {
-        echo "Kích thước tệp quá lớn.";
-        exit();
-    }
-
-    // Lưu tệp
-    if (!move_uploaded_file($image["tmp_name"], $targetFile)) {
-        echo "Có lỗi xảy ra khi tải lên tệp.";
-        exit();
-    }
-
-    // Đăng ký người dùng
-    $userModel = new User($conn);
-    if ($userModel->register($username, $email, $password, $targetFile)) {
-        header("Location: login.php");
+    if ($existingUser) {
+        if ($existingUser['username'] === $username) {
+            $error = "Tên tài khoản đã tồn tại.";
+        } elseif ($existingUser['email'] === $email) {
+            $error = "Email đã được sử dụng.";
+        }
     } else {
-        echo "Có lỗi xảy ra khi đăng ký.";
+        // Xử lý tải lên hình ảnh
+        $targetDir = "uploads/user/";
+        $fileName = time() . "_" . basename($image["name"]);
+        $targetFile = $targetDir . $fileName;
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+        // Kiểm tra loại tệp
+        $allowedTypes = ["jpg", "jpeg", "png", "gif"];
+        if (!in_array($imageFileType, $allowedTypes)) {
+            $error = "Chỉ cho phép các tệp JPG, JPEG, PNG và GIF.";
+        }
+
+        // Kiểm tra kích thước tệp
+        if ($image["size"] > 5000000) {
+            $error = "Kích thước tệp quá lớn.";
+        }
+
+        // Lưu tệp
+        if (!isset($error) && !move_uploaded_file($image["tmp_name"], $targetFile)) {
+            $error = "Có lỗi xảy ra khi tải lên tệp.";
+        }
+
+        // Đăng ký người dùng nếu không có lỗi
+        if (!isset($error)) {
+            $userModel = new User($conn);
+            if ($userModel->register($username, $email, $password, $fileName)) {
+                header("Location: login.php");
+                exit();
+            } else {
+                $error = "Có lỗi xảy ra khi đăng ký.";
+            }
+        }
     }
 }
 ?>
@@ -95,8 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 14px;
         }
 
-        .register-containe img {
-
+        .register-container img {
             height: 80px;
             object-fit: cover;
             margin-bottom: 20px;
@@ -110,6 +127,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="register-container">
         <img src="uploads/logo.jpg" alt="Logo" class="img-fluid mb-4">
         <h2>Đăng ký tài khoản</h2>
+
+        <!-- Hiển thị thông báo lỗi -->
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger text-center" role="alert">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
+
         <form action="register.php" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>

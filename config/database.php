@@ -1,8 +1,4 @@
 <?php
-// $host = "sql113.infinityfree.com";
-// $dbname = "if0_38657529_shop_db";
-// $username = "if0_38657529";
-// $password = "binh24012002";
 
 $host = "localhost";
 $dbname = "shop_db";

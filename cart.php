@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Trả về dữ liệu giỏ hàng dưới dạng JSON
     header('Content-Type: application/json');
+    header("Location: ../index.php?added=success");
     echo json_encode(['success' => true, 'cart' => array_values($_SESSION['cart'])]);
     exit;
 }

@@ -39,11 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (move_uploaded_file($image["tmp_name"], $targetFilePath)) {
                 $imagePath = $fileName;
             } else {
-                echo "<div class='alert alert-danger'>Lỗi khi upload ảnh!</div>";
                 $imagePath = $product["image"];
             }
         } else {
-            echo "<div class='alert alert-danger'>Chỉ chấp nhận file JPG, JPEG, PNG, GIF!</div>";
             $imagePath = $product["image"];
         }
     } else {
@@ -51,7 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if ($productModel->updateProduct($_GET["id"], $name, $price, $description, $imagePath, $category_id)) {
-        echo "<div class='alert alert-success'>Cập nhật sản phẩm thành công! <a href='manage_products.php'>Quay lại</a></div>";
+        // Chuyển hướng về chính trang này với thông báo thành công
+        header("Location: edit_product.php?id=" . $_GET["id"] . "&success=1");
+        exit();
     } else {
         echo "<div class='alert alert-danger'>Cập nhật thất bại!</div>";
     }
@@ -59,6 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php include 'header_admin.php'; ?>
+
+<?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+    <div class="alert alert-success text-center" role="alert">
+        Cập nhật sản phẩm thành công!
+    </div>
+<?php endif; ?>
 
 <body>
     <div class="pc-container">
@@ -91,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="mb-3">
                             <label for="image" class="form-label">Hình ảnh</label>
                             <input type="file" class="form-control" id="image" name="image" accept="image/*">
-                            <img src="<?= htmlspecialchars($product["image"]) ?>" width="100" alt="<?= htmlspecialchars($product["name"]) ?>" class="mt-2">
+                            <img src="../uploads/product/<?= htmlspecialchars($product["image"]) ?>" width="100" alt="<?= htmlspecialchars($product["name"]) ?>" class="mt-2">
                         </div>
                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                     </form>
